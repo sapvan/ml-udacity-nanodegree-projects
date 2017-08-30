@@ -13605,23 +13605,23 @@ Think about the pros and cons of adding more training points based on if the tra
 <p><strong>Answer: </strong></p>
 <p><strong> max_depth = 1 </strong></p>
 <ul>
-<li>The training curve is decreasing and converges at around 0.45. This low score says that the model is not complex enough to fit the training data well. The validation curve increases, but converges at a score of around 0.4, which is very low, indicates underfitting.</li>
+<li>The training curve is decreasing and converges at around 0.45. This low score says that the model is not complex enough to fit the training data well. The testing curve increases, but converges at a score of around 0.4, which is very low, indicates underfitting.</li>
 <li>The curves have converged at very low scores and have a very narrow gap between them. This indicates a high bias situation. Since the model is already underfitting the data, adding more training points will not benefit the model.</li>
 </ul>
 <p><strong> max_depth = 3 </strong></p>
 <ul>
-<li>The training curve decreases and converges at around 0.83. It is a good training score. The validation curve increases and converges at a score of around 0.8. Since both the curves are converging at a higher score, this looks like a good bias/variance tradeoff to me.</li>
+<li>The training curve decreases and converges at around 0.83. It is a good training score. The testing curve increases and converges at a score of around 0.8. Since both the curves are converging at a higher score, this looks like a good bias/variance tradeoff to me.</li>
 <li>The curves have converged at an ideal score. Adding more training points will not benefit the model.</li>
 </ul>
 <p><strong> max_depth = 6 </strong></p>
 <ul>
-<li>The training curve slowly decreases to about 0.9. Its pretty high. Indicates overfitting. The validation curve increases to about 0.75. Little low for a validation score.  The model should generalize better for new data. There is a wide gap between training and validation curves.</li>
-<li>Both curves will converge at an ideal score if more training points are added and will inturn benefit the model. </li>
+<li>The training curve slowly decreases to about 0.9. Its pretty high. Indicates overfitting. The testing curve increases to about 0.75. Little low for a testing score.  There is a wide gap between training and testing curves.</li>
+<li>Typically more data benefits high variance and overfit models. However, in this case, the validation curve has reached its optimal score and started to diverge. Adding more training points might not benefit the model. </li>
 </ul>
 <p><strong> max_depth = 10 </strong></p>
 <ul>
-<li>The training curve remains almost at 1. Indicates overfitting. The validation curve increases to about 0.7. Little low for a validation score. Indicates that the model is not generalizing well for new data. There is a very wide gap between training and validation curves.</li>
-<li>Both curves will converge at an ideal score if more training points are added and will inturn benefit the model. </li>
+<li>The training curve remains almost at 1. Indicates overfitting. The testing curve increases to about 0.7. Little low for a testing score. Indicates that the model is not generalizing well for new data. There is a very wide gap between training and testing curves.</li>
+<li>The testing curve has kind of started to diverge. Adding more training points might not benefit the model. </li>
 </ul>
 
 </div>
