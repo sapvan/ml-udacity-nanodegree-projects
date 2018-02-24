@@ -16275,16 +16275,27 @@ hJ1rpAAAAABJRU5ErkJggg==
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong></p>
 <ol>
-<li>An optimal policy for the smartcab would be those which will make the cab reach faster and safer to the destination. Listing optimal policy below:<ul>
+<li><p>An optimal policy for the smartcab would be those which will make the cab reach faster and safer to the destination. Listing optimal policy below:</p>
+<ul>
 <li>On a green light, agent can always take a right. </li>
-<li>On a green light, if waypoint is left:<ul>
-<li>No oncoming traffic - agent should turn left.</li>
-<li>Oncoming traffic - agent should be idle</li>
+<li><p>On a green light, if waypoint is left:</p>
+<ul>
+<li>No oncoming traffic<ol>
+<li>Vehicles to the left of agent taking a left or no vehicles to the left - agent can take left.</li>
+<li>Vehicles to the left of agent going forward - agent cannot take left. Best option is to move forward.</li>
+</ol>
+</li>
+<li>Oncoming traffic<ol>
+<li>Oncoming traffic going right, agent should stay idle.</li>
+<li>Oncoming traffic going forward, agent should stay idle.</li>
+</ol>
+</li>
 </ul>
 </li>
-<li>On a green light, if waypoint is forward, the agent should move forward.</li>
+<li><p>On a green light, if waypoint is forward, the agent should move forward.</p>
+</li>
 <li>On a red light:<ul>
-<li>Take right if the way is clear or stay idle.   </li>
+<li>If oncoming traffic going right, stay idle. Turn right in all other cases.</li>
 </ul>
 </li>
 </ul>
