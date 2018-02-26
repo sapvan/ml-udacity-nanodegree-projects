@@ -13138,8 +13138,8 @@ uc3MzKyDUERhrxczMzMzMzMrhluwzMzMzMzMysQJlpmZmZmZWZk4wTIzMzMzMysTJ1hmZmZmZmZl
 <p><code>'waypoint'</code> makes the smartcab <strong>efficient</strong>. It tells the agent which would be the best decision to take for the current step. The agent's first preference would be to move in the direction suggested by <code>waypoint</code>. Sometimes, depending on the traffic lights, the agent might not be able to move in the given direction. Moving in the <code>waypoint</code> direction might at best result in a reward and at worst result in a collision.</p>
 <p><code>'inputs'</code> help the smartcab in making <strong>safe</strong> decisions. The color of <code>'light'</code> is important in taking decisions in a traffic signal. For instance, crossing an intersection at a red light could at worst lead to a collision and at best lead to a violation. Similarly, not taking any action on a green signal could at worst result in a violation. <code>'left', 'oncoming'</code> help the smartcab in deciding when it is safe to move or stay idle. Below are more details on the same. All examples mentioned are the behaviours at an intersection:</p>
 <ul>
-<li><code>'left'</code> tells the smartcab which direction the vehicles on its left are moving. If the smartcab decides to go straight when vehicles on its left are taking a right, it will lead to a collision. </li>
-<li><code>'oncoming'</code> tells which direction the oncoming vehicles are moving. If the <code>'oncoming'</code> vehicles are taking a right and our smartcab decides to go straight, it will lead to a collision.</li>
+<li><code>'left'</code> tells the smartcab which direction the vehicles on its left are moving. If the smartcab decides to go straight when vehicles on its left are going straight, it will lead to a collision. </li>
+<li><code>'oncoming'</code> tells which direction the oncoming vehicles are moving. If the <code>'oncoming'</code> vehicles are taking a left and our smartcab decides to go straight, it will lead to a collision.</li>
 <li>In both <code>'left' and 'oncoming'</code> scenarios, the actions taken could at best lead to a reward and at worst a collision.</li>
 <li><code>'right'</code> tells the smartcab which direction the vehicles on its right are moving. This is <strong>not taken into consideration</strong> in the current scenario because of US right-of-way traffic laws, the agent does not need to know what the vehicle on its right is doing.</li>
 </ul>
@@ -16226,7 +16226,7 @@ hJ1rpAAAAABJRU5ErkJggg==
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong></p>
 <ul>
-<li>The decaying used for epsilon is: <strong> math.exp(-self.alpha*self.trials) </strong> mathematically equal to <strong> ϵ=e^(−at),for 0 &lt; a &lt;1 </strong>. The epsilon value set at 1, is kept constant for first 25 trials. Post that, the decaying function is applied for all trials.</li>
+<li>The decaying used for epsilon is: <strong> math.exp(-self.alpha_decay*self.trials) </strong> mathematically equal to <strong> ϵ=e^(−at),for 0 &lt; a &lt;1 </strong>. The epsilon value set at 1, is kept constant for first 25 trials. Post that, the decaying function is applied for all trials.</li>
 <li>Around 450 trials were needed for the agent before beginning testing.</li>
 <li><strong>alpha=0.4</strong> was used and kept constant. I want a perfect balance between reliability and safety and the current alpha value achieves both. Trials run until <code>epsilon</code> value decays and becomes equal to <code>tolerance</code>. Hence the <code>tolerance</code> value should be small enough to accomodate this. <code>epsilon-tolerance</code> of <strong>0.01</strong> was used.</li>
 <li>A lot of improvement was made with this Q-Learner. Both safety and reliability ratings jumped from <strong>F</strong> to <strong>A+</strong>. Rewards per action jumped from -5 to 2, which is very good.</li>
@@ -16275,27 +16275,16 @@ hJ1rpAAAAABJRU5ErkJggg==
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong></p>
 <ol>
-<li><p>An optimal policy for the smartcab would be those which will make the cab reach faster and safer to the destination. Listing optimal policy below:</p>
-<ul>
+<li>An optimal policy for the smartcab would be those which will make the cab reach faster and safer to the destination. Listing optimal policy below:<ul>
 <li>On a green light, agent can always take a right. </li>
-<li><p>On a green light, if waypoint is left:</p>
-<ul>
-<li>No oncoming traffic<ol>
-<li>Vehicles to the left of agent taking a left or no vehicles to the left - agent can take left.</li>
-<li>Vehicles to the left of agent going forward - agent cannot take left. Best option is to move forward.</li>
-</ol>
-</li>
-<li>Oncoming traffic<ol>
-<li>Oncoming traffic going right, agent should stay idle.</li>
+<li>On a green light, if waypoint is left and there is oncoming traffic:<ul>
+<li>Oncoming traffic going left, agent should stay idle.</li>
 <li>Oncoming traffic going forward, agent should stay idle.</li>
-</ol>
-</li>
 </ul>
 </li>
-<li><p>On a green light, if waypoint is forward, the agent should move forward.</p>
-</li>
+<li>On a green light, if waypoint is forward, the agent should move forward.</li>
 <li>On a red light:<ul>
-<li>If oncoming traffic going right, stay idle. Turn right in all other cases.</li>
+<li>If traffic is coming from left, stay idle. Turn right in all other cases.</li>
 </ul>
 </li>
 </ul>
@@ -16311,7 +16300,7 @@ hJ1rpAAAAABJRU5ErkJggg==
    -- right : 1.96
    -- None : 0.52
 </code></pre>
-   In the above example, the agent is rewarded well for taking a right when the lights are red and there is no oncoming traffic and. Taking a left or moving forward on a red light will result in a collision and the algorithm penalizes agent with a negative reward for such actions. </li>
+   In the above example, the agent is rewarded well for taking a right when the lights are red and there is no oncoming traffic. Taking a left or moving forward on a red light will result in a collision and the algorithm penalizes agent with a negative reward for such actions. </li>
 </ul>
 <ul>
 <li>Example 2<br>
