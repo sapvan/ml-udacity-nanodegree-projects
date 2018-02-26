@@ -45,7 +45,7 @@ class LearningAgent(Agent):
             # self.epsilon = self.epsilon - 0.05
             # self.epsilon = 1/(self.trials**2)
 
-            # Keep epsilon value constant for first 100 trials
+            # Keep epsilon value constant for first 25 trials
             if self.trials > 25:
                 self.epsilon = math.exp(-self.alpha_decay*self.trials)
             self.trials = self.trials + 1
