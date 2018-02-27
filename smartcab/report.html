@@ -16276,15 +16276,19 @@ hJ1rpAAAAABJRU5ErkJggg==
 <p><strong>Answer:</strong></p>
 <ol>
 <li>An optimal policy for the smartcab would be those which will make the cab reach faster and safer to the destination. Listing optimal policy below:<ul>
-<li>On a green light, agent can always take a right. </li>
-<li>On a green light, if waypoint is left and there is oncoming traffic:<ul>
-<li>Oncoming traffic going left, agent should stay idle.</li>
-<li>Oncoming traffic going forward, agent should stay idle.</li>
+<li>If waypoint is "forward":<ul>
+<li>Light is red - agent should stay idle</li>
+<li>Light is green - agent should move forward</li>
 </ul>
 </li>
-<li>On a green light, if waypoint is forward, the agent should move forward.</li>
-<li>On a red light:<ul>
-<li>If traffic is coming from left, stay idle. Turn right in all other cases.</li>
+<li>If waypoint is "right":<ul>
+<li>Light is red - if there is traffic from left going forward, agent should stay idle. Else take right.</li>
+<li>Light is green - Agent should take right.</li>
+</ul>
+</li>
+<li>If waypoint is "left":<ul>
+<li>Light is red - Agent should stay idle</li>
+<li>Light is green - If oncoming traffic is going right or oncoming traffic is going forward, agent should stay idle. Else take left.</li>
 </ul>
 </li>
 </ul>
@@ -16342,7 +16346,7 @@ hJ1rpAAAAABJRU5ErkJggg==
   -- right : 0.00
   -- None : 0.00
 </code></pre>
-  In the above example, the lights are green, oncoming traffic is going to the left. The vehicles to the left of agent is moving forward. The agent should be rewarded for going right in this case and taking left should be pemalized as it results in a collision. Exact opposite is being done.</li>
+  In the above example, the lights are green, oncoming traffic is going to the left. The vehicles to the left of agent is moving forward. The agent should be rewarded for going right in this case and taking left should be penalized as it results in a collision. Exact opposite is being done.</li>
 </ul>
 
 </div>
